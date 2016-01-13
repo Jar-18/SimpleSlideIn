@@ -150,11 +150,11 @@
 					$(this).click(function(e) {
 						var animationStyle = $(this).css('-webkit-animation');
 						console.log(animationStyle);
-						if(animationStyle !== 'rotate 0.5s ease 0s 1 normal forwards running') {
-							$(this).css('-webkit-animation', 'rotate 0.5s forwards');
+						if(animationStyle.indexOf('rotate90') < 0) {
+							$(this).css('-webkit-animation', 'rotate90 0.5s forwards');
 						}
 						else {
-							$(this).css('-webkit-animation', 'rotateBack 0.5s');
+							$(this).css('-webkit-animation', 'rotateBack90 0.5s');
 						}
 						content.slideToggle();
 					});

@@ -74,13 +74,13 @@ body {
 	display: none;
 }
 
-@-webkit-keyframes rotate {
+@-webkit-keyframes rotate90 {
 	100% {
     	-webkit-transform: rotate(90deg);
 	}
 }
 
-@-webkit-keyframes rotateBack {
+@-webkit-keyframes rotateBack90 {
 	0% {
 		-webkit-transform: rotate(90deg);
 	},
