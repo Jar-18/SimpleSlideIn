@@ -2,6 +2,7 @@
 (function($) {
     $.extend({
     	sfcSlideInActive: false,
+
     	sfcSlideIn: function(data) {
     		if($.sfcSlideInActive) {
     			return;
@@ -14,31 +15,29 @@
     				qty: 1,
     				shopOrder: 'BOX-ITEM-43535',
     				orderType: 'Production',
-    				asBuild: {
-    					comp1: 'BY-2131231',
-    					comp2: 'BY-2121414',
-    				},
-    				dc: [{
-    					name: 'DG1',
-    					params: [{
-    						name: 'Width',
-    						value: '40cm',
-    						operation: 'TEST',
-    						resource: 'TEST-RES-1'
-    					}, {
-    						name: 'Length',
-    						value: '60cm',
-    						operation: 'TEST',
-    						resource: 'TEST-RES-1'
-    					}]
+    				asBuild: [{
+    					name: 'BY-2131231'
     				}, {
-    					name: 'DG2',
-    					params: [{
-    						name: 'Weight',
-    						value: '5kg',
-    						operation: 'TEST',
-    						resource: 'TEST-RES-1'
-    					}]
+    					name: 'BY-2121414'
+    				}],
+    				dc: [{
+    					group: 'DG1',
+  						param: 'Width',
+  						value: '40cm',
+  						operation: 'TEST',
+  						resource: 'TEST-RES-1'
+    				},{
+    					group: 'DG1',
+  						param: 'Length',
+  						value: '60cm',
+  						operation: 'TEST',
+  						resource: 'TEST-RES-1'
+    				}, {
+    					group: 'DG2',
+    					param: 'Weight',
+  						value: '5kg',
+  						operation: 'TEST',
+  						resource: 'TEST-RES-1'
     				}]
     			}
     		}
@@ -54,26 +53,26 @@
 						</div>
 						<div class="slideInRow">
 							<div class="slideInItem">
-								<b>SFC:</b><p>${data.sfc}</p>
+								<b>SFC:</b><p bind="sfc"></p>
 							</div>
 							<div class="slideInItem">
-								<b>Status:</b><p>${data.status}</p>
-							</div>
-						</div>
-						<div class="slideInRow">
-							<div class="slideInItem">
-								<b>Material/Ver:</b><p>${data.materialVer}</p>
-							</div>
-							<div class="slideInItem">
-								<b>Qty:</b><p>${data.qty}</p>
+								<b>Status:</b><p bind="status"></p>
 							</div>
 						</div>
 						<div class="slideInRow">
 							<div class="slideInItem">
-								<b>ShopOrder:</b><p>${data.shopOrder}</p>
+								<b>Material/Ver:</b><p bind="materialVer"></p>
 							</div>
 							<div class="slideInItem">
-								<b>OrderType:</b><p>${data.orderType}</p>
+								<b>Qty:</b><p bind="qty"></p>
+							</div>
+						</div>
+						<div class="slideInRow">
+							<div class="slideInItem">
+								<b>ShopOrder:</b><p bind="shopOrder"></p>
+							</div>
+							<div class="slideInItem">
+								<b>OrderType:</b><p bind="orderType"></p>
 							</div>
 						</div>
 						<div class="slideInCollapse">
@@ -82,14 +81,9 @@
 								<image id="asBuildArrow" src="image/arrow-left.png" sfcCollapseContent="asBuildContent">
 							</div>
 							<div id="asBuildContent" class="slideInCollapseContent">
-								<div class="slideInRow">
+								<div class="slideInRow" repeat="comp in asBuild">
 									<div class="slideInItem">
-										<b>Component1:</b><p>${data.asBuild.comp1}</p>
-									</div>
-								</div>
-								<div class="slideInRow">
-									<div class="slideInItem">
-										<b>Component2:</b><p>${data.asBuild.comp2}</p>
+										<b>Component:</b><p bind="comp.name"></p>
 									</div>
 								</div>
 							</div>
@@ -108,25 +102,12 @@
 										<th>Operation</th>
 										<th>Resource</th>
 									</tr>
-									<tr>
-										<td rowspan="2">${data.dc[0].name}</td>
-										<td>${data.dc[0].params[0].name}</td>
-										<td>${data.dc[0].params[0].value}</td>
-										<td>${data.dc[0].params[0].operation}</td>
-										<td>${data.dc[0].params[0].resource}</td>
-									</tr>
-									<tr>
-										<td>${data.dc[0].params[1].name}</td>
-										<td>${data.dc[0].params[1].value}</td>
-										<td>${data.dc[0].params[1].operation}</td>
-										<td>${data.dc[0].params[1].resource}</td>
-									</tr>
-									<tr>
-										<td>${data.dc[1].name}</td>
-										<td>${data.dc[1].params[0].name}</td>
-										<td>${data.dc[1].params[0].value}</td>
-										<td>${data.dc[1].params[0].operation}</td>
-										<td>${data.dc[1].params[0].resource}</td>
+									<tr repeat="dcRecord in dc">
+										<td bind="dcRecord.group"></td>
+										<td bind="dcRecord.param"></td>
+										<td bind="dcRecord.value"></td>
+										<td bind="dcRecord.operation"></td>
+										<td bind="dcRecord.resource"></td>
 									</tr>
 								</table>
 							</div>
@@ -143,6 +124,8 @@
     				</div>
     				`;
 				$('body:eq(0)').prepend(sfcSlideInDiv);
+
+				$$.bind(data);
 
 				$('[sfcCollapseContent]').each(function() {
 					var contentId = $(this).attr('sfcCollapseContent');
@@ -165,6 +148,7 @@
     		sfcSlideIn.animate({"right":"0px"}, "slow");
     		$.sfcSlideInActive = true;
     	},
+
     	sfcSlideOut: function() {
     		if(!$.sfcSlideInActive) {
     			return;
@@ -172,6 +156,10 @@
     		var sfcSlideIn = $('#sfcSlideIn');
     		sfcSlideIn.animate({"right":"-500"}, "slow");
     		$.sfcSlideInActive = false;
+    	},
+
+    	updateSfcSlideInModel: function(data) {
+    		$$.bind(data);
     	}
     });
 })(jQuery);
