@@ -3,11 +3,14 @@
 	<script src="http://code.jquery.com/jquery-1.11.3.min.js"></script>
 	<script src="js/bind.js"></script>
 	<script src="js/sfcSlideIn.js"></script>
+	<script src="js/ResourceSlideIn.js"></script>
 	<link href="css/slideIn.css" rel="stylesheet" type="text/css" />
 </head>
 <body>
 	<input type="button" value="Slide In" id="btnFadein" />
 	<input type="button" value="Slide Out" id="btnFadeout"/>
+	<input type="button" value="Res Slide In" id="resBtnFadein" />
+	<input type="button" value="Res Slide Out" id="resBtnFadeout"/>
 	<script type="text/javascript"> 
 		$(document).ready(function(){ 
 			$("#btnFadein").click(function(e) {
@@ -15,6 +18,12 @@
 			});
 			$("#btnFadeout").click(function(e) {
 				$.sfcSlideOut();
+			});
+			$("#resBtnFadein").click(function(e) {
+				$.resourceSlideIn();
+			});
+			$("#resBtnFadeout").click(function(e) {
+				$.resourceSlideOut();
 			});
 		});
 	</script>

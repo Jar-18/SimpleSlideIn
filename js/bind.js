@@ -27,22 +27,24 @@ var $$ = {
 			//Repeated nodes will clone this node
 			$(this).css('display', '');
 
-			for(let i = arr.length - 1;i >= 0;i--) {
-				var clonedNode = $(this).clone();
-				clonedNode.removeAttr('repeat');
-				//Make it easy to find to remove
-				clonedNode.attr('repeated', '');
-				clonedNode.find('[bind]').each(function() {
-					var bind = $(this).attr('bind');
-					var splitedArr = bind.split('.');
-					var curIter = splitedArr[0];
-					var prop = splitedArr[1];
-					if(iter === curIter) {
-						$(this).text(arr[i][prop]);
-					}
-					$(this).removeAttr('bind');
-				});
-				$(this).after(clonedNode);
+			if(arr) { 
+				for(let i = arr.length - 1;i >= 0;i--) {
+					var clonedNode = $(this).clone();
+					clonedNode.removeAttr('repeat');
+					//Make it easy to find to remove
+					clonedNode.attr('repeated', '');
+					clonedNode.find('[bind]').each(function() {
+						var bind = $(this).attr('bind');
+						var splitedArr = bind.split('.');
+						var curIter = splitedArr[0];
+						var prop = splitedArr[1];
+						if(iter === curIter) {
+							$(this).text(arr[i][prop]);
+						}
+						$(this).removeAttr('bind');
+					});
+					$(this).after(clonedNode);
+				}
 			}
 
 			//Keep the template but not visible
