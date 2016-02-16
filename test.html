@@ -12,19 +12,88 @@
 	<input type="button" value="Res Slide In" id="resBtnFadein" />
 	<input type="button" value="Res Slide Out" id="resBtnFadeout"/>
 	<script type="text/javascript"> 
-		$(document).ready(function(){ 
+		$(document).ready(function(){
+
+			var sfcData = {
+    				sfc: 'BX-12316456453',
+    				status: 'In Work',
+    				materialVer: 'BOX-ITEM-1/A',
+    				qty: 1,
+    				shopOrder: 'BOX-ITEM-43535',
+    				orderType: 'Production',
+    				asBuild: [{
+    					name: 'BY-2131231'
+    				}, {
+    					name: 'BY-2121414'
+    				}],
+    				dc: [{
+    					group: 'DG1',
+  						param: 'Width',
+  						value: '40cm',
+  						operation: 'TEST',
+  						resource: 'TEST-RES-1'
+    				},{
+    					group: 'DG1',
+  						param: 'Length',
+  						value: '60cm',
+  						operation: 'TEST',
+  						resource: 'TEST-RES-1'
+    				}, {
+    					group: 'DG2',
+    					param: 'Weight',
+  						value: '5kg',
+  						operation: 'TEST',
+  						resource: 'TEST-RES-1'
+    				}]
+    			};
+
+    	var resourceData = {
+    				resource: 'ASSY-RES',
+    				description: 'For assembly',
+    				resStatus: 'In Work',
+    				sfcList:[{
+    					sfc: 'BX-12316456453',
+    					status: 'In Work',
+    					materialVer: 'BOX-ITEM-1/A',
+    					operation: 'ASSY'
+    				}, {
+    					sfc: 'BX-12316456454',
+    					status: 'In Work',
+    					materialVer: 'BOX-ITEM-1/A',
+    					operation: 'ASSY'
+    				},{
+    					sfc: 'BX-12316456455',
+    					status: 'In Queue',
+    					materialVer: 'BOX-ITEM-1/A',
+    					operation: 'ASSY'
+    				},{
+    					sfc: 'BX-12316456456',
+    					status: 'In Queue',
+    					materialVer: 'BOX-ITEM-1/A',
+    					operation: 'ASSY'
+    				},{
+    					sfc: 'BX-12316456457',
+    					status: 'In Queue',
+    					materialVer: 'BOX-ITEM-1/A',
+    					operation: 'ASSY'
+    				}]
+    			};
+
 			$("#btnFadein").click(function(e) {
-				$.sfcSlideIn();
+				$.sfcSlideIn(sfcData);
 			});
 			$("#btnFadeout").click(function(e) {
 				$.sfcSlideOut();
 			});
 			$("#resBtnFadein").click(function(e) {
-				$.resourceSlideIn();
+				$.resourceSlideIn(resourceData);
 			});
 			$("#resBtnFadeout").click(function(e) {
 				$.resourceSlideOut();
 			});
+
+			//$.updateSfcSlideInModel(sfcData);
+			//$.updateResourceSlideInModel(resourceData);
 		});
 	</script>
 </body>
